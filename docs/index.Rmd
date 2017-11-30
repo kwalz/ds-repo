@@ -28,4 +28,132 @@ g <- ggplot(data=mpg, aes(x = displ, y = hwy))
 g + geom_point()
 
 ```
+#I need color
+
+```{r color}
+
+
+# data()
+# ?mpg
+
+g + geom_point(aes(color = class))
+
+```
+# but I need b and w 
+
+```{r shape}
+ggplot(data = mpg, aes(x = displ, y = hwy, shape=class)) + geom_point()
+
+```
+#size
+
+```{r size}
+ggplot(data = mpg, aes(x = cty, y = hwy, size=class, color = fl)) + geom_point(alpha = 0.2)
+
+```
+
+#fix color
+
+```{r fix color}
+ggplot(data = mpg, aes(x = cty, y = hwy, size=class, color = fl)) + geom_point(alpha = 0.2, color = "blue")
+
+```
+
+#exercise 1
+
+```{r exercise 1}
+ggplot(data = mpg) + 
+      geom_point(aes(x = displ, y = hwy), color = "blue")
+
+ggplot(data = mpg) + 
+      geom_point(aes(x = displ, y = hwy, color = displ < 5))
+```
+
+## Geoms
+```{r geom_examples}
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth() +
+  labs(title = "Relationship between engine size and miles per gallon (mpg)",
+         x = "Highway MPG",
+         y = "Engine displacement (liters)") +
+  theme_bw()
+```
+
+
+## Data wrangling with `dplyr`
+
+```{r }
+gapminder <- readr::read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder.csv")
+
+gapminder
+
+#useful functions to get to know
+head(gapminder)
+tail(gapminder)
+
+head(gapminder, 30)
+
+str(gapminder)
+
+names(gapminder)
+
+dim(gapminder)
+
+ncol(gapminder)
+nrow(gapminder)
+
+c(nrow(gapminder),ncol(gapminder))
+
+summary(gapminder)
+```
+## Data wrangling2 with `dplyr`
+
+```{r }
+head(gapminder$lifeExp)
+
+
+
+```
+
+## Data wrangling2 with `dplyr`
+
+```{r }
+filter(gapminder, lifeExp < 29)
+
+filter(gapminder, country == "Mexico")
+
+sweden <- filter(gapminder, country == "Sweden")
+
+mean(sweden$lifeExp)
+
+## pipe operator '%>%' (and then)
+ 
+gapminder %>% head(3) 
+
+sweden <- filter(gapminder, country == "Sweden")
+x <- mean(sweden$lifeExp)
+
+y <- gapminder %>% 
+  filter(country == "Sweden") %>% 
+  summarize(mean_lifeExp = mean(lifeExp))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
