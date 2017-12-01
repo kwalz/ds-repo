@@ -139,9 +139,56 @@ y <- gapminder %>%
   filter(country == "Sweden") %>% 
   summarize(mean_lifeExp = mean(lifeExp))
 
+
 ```
 
+##select by columns
+```{r}
+select(gapminder, year, lifeExp)
 
+gapminder %>% 
+  select(year, lifeExp) %>% 
+  tail()
+
+gapminder %>% 
+  filter(country == "Cambodia") %>% 
+  select(country, year, pop, gdpPercap)
+
+gapminder %>% 
+  filter(country == "Cambodia") %>% 
+  select(-continent, -lifeExp)
+
+gapminder %>% 
+  filter(country == "Mexico", year == 2002)
+
+gapminder %>% 
+  mutate(gdp = pop * gdpPercap)
+
+gapminder %>% 
+  mutate(index = 1:nrow(gapminder))
+
+
+gapminder %>% 
+  filter(country %in% c("Egypt", "Vietnam")) %>% 
+  mutate(max_gdpPercap = max(gdpPercap))
+  
+  ##group by to get 2 maxes
+gapminder %>% 
+  filter(country %in% c("Egypt", "Vietnam")) %>%
+  group_by(country) %>% 
+  summarise(max_gdpPercap = max(gdpPercap))
+
+gapminder %>% 
+  group_by(country) %>% 
+  summarise(max_gdpPercap = max(gdpPercap))
+
+gapminder %>% 
+  group_by(country) %>% 
+  mutate(max_gdpPercap = max(gdpPercap)) %>% 
+  filter(max_gdpPercap == gdpPercap) %>% 
+  arrange(desc(year))
+
+```
 
 
 
