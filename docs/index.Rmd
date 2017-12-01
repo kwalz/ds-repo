@@ -15,58 +15,61 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-##scatterplot
+## 'geom-point'
 
 ```{r scatterplot}
-
-
 # data()
 # ?mpg
-mpg
+#mpg
 
-g <- ggplot(data=mpg, aes(x = displ, y = hwy))
-g + geom_point()
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point()
 
 ```
-#I need color
+## 'color'
 
 ```{r color}
 
-
-# data()
-# ?mpg
-
-g + geom_point(aes(color = class))
+ggplot(data = mpg, aes(x = displ, y = hwy, color=class)) + 
+  geom_point()
 
 ```
-# but I need b and w 
+## 'shape': need b and w 
+Changed 'color' to 'shape':
 
 ```{r shape}
-ggplot(data = mpg, aes(x = displ, y = hwy, shape=class)) + geom_point()
+ggplot(data = mpg, aes(x = displ, y = hwy, shape=class)) + 
+  geom_point()
 
 ```
-#size
+## 'size'
 
 ```{r size}
-ggplot(data = mpg, aes(x = cty, y = hwy, size=class, color = fl)) + geom_point(alpha = 0.2)
+ggplot(data = mpg, aes(x = cty, y = hwy, size = class, color = fl)) + 
+  geom_point(alpha = 0.2)
 
 ```
 
-#fix color
+## fix color
 
 ```{r fix color}
-ggplot(data = mpg, aes(x = cty, y = hwy, size=class, color = fl)) + geom_point(alpha = 0.2, color = "blue")
+ggplot(data = mpg, aes(x = cty, y = hwy, size=class, color = fl)) + 
+  geom_point(alpha = 0.2, color = "blue")
 
 ```
 
-#exercise 1
+## Exercise
 
 ```{r exercise 1}
+
 ggplot(data = mpg) + 
       geom_point(aes(x = displ, y = hwy), color = "blue")
 
 ggplot(data = mpg) + 
       geom_point(aes(x = displ, y = hwy, color = displ < 5))
+```
+
+
 ```
 
 ## Geoms
@@ -79,6 +82,34 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
          x = "Highway MPG",
          y = "Engine displacement (liters)") +
   theme_bw()
+```
+
+## Multiple geoms
+
+```{r mult_geoms}
+
+ggplot(data = mpg) +
+  geom_point(aes(x = displ, y = hwy)) +
+  geom_smooth(aes(x = displ, y = hwy))
+
+?geom_smooth
+
+ggplot(data = mpg, aes(x = displ, y = hwy))+
+  geom_point() +
+  geom_smooth()
+```
+## Customization
+
+```{r customize}
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Relationship b/w engine size & MPG",
+       x = "Highway MPG",
+       y = "Engine displacement (liters)") +
+  theme_bw() +
+  theme(text = element_text(size = 16))
 ```
 
 
@@ -125,7 +156,6 @@ filter(gapminder, lifeExp < 29)
 filter(gapminder, country == "Mexico")
 
 sweden <- filter(gapminder, country == "Sweden")
-
 mean(sweden$lifeExp)
 
 ## pipe operator '%>%' (and then)
